@@ -1,7 +1,7 @@
-yfinance
+yfinance==0.2.54
 pandas
 numpy
 streamlit
 plotly
 requests
-altair==4.2.2
+time

@@ -5,6 +5,7 @@ import streamlit as st
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import requests
+import time
 
 def load_css(file_path):
     with open(file_path) as f:
@@ -50,7 +51,17 @@ def search_ticker(query):
 
 @st.cache_data(ttl=3600)
 def load_data(ticker, start, end):
-    df = yf.download(ticker, start=start, end=end, auto_adjust=True)
+    for attempt in range(3):  # try up to 3 times
+        try:
+            df = yf.download(ticker, start=start, end=end, auto_adjust=True)
+            break  # success — exit the loop
+        except Exception as e:
+            if attempt < 2:
+                time.sleep(2)  # wait 2 seconds before retrying
+            else:
+                st.error("Unable to fetch data from Yahoo Finance. Please try again in a moment.")
+                st.stop()
+    
     df.columns = df.columns.get_level_values(0)
     df = df.reset_index()
     df.columns = [col if isinstance(col, str) else col[0] for col in df.columns]
