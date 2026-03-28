@@ -75,6 +75,10 @@ def load_data(ticker, start, end):
         'Close': raw['Close'],
         'Volume': raw['Volume']
     })
+
+    st.write("DEBUG — first 3 rows:", df.head(3))
+    st.write("DEBUG — columns:", df.columns.tolist())
+    st.write("DEBUG — raw columns:", raw.columns.tolist())
     
     # Make sure Date column exists
     if 'Date' not in df.columns and 'index' in df.columns:
