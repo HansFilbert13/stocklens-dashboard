@@ -50,9 +50,10 @@ def search_ticker(query):
 
 @st.cache_data(ttl=3600)
 def load_data(ticker, start, end):
-    df = yf.download(ticker, start=start, end=end)
+    df = yf.download(ticker, start=start, end=end, auto_adjust=True)
     df.columns = df.columns.get_level_values(0)
-    df.reset_index(inplace=True)
+    df = df.reset_index()
+    df.columns = [col if isinstance(col, str) else col[0] for col in df.columns]
     
     info = yf.Ticker(ticker).info
     
