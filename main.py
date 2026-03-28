@@ -51,20 +51,31 @@ def search_ticker(query):
 
 @st.cache_data(ttl=3600)
 def load_data(ticker, start, end):
-    for attempt in range(3):  # try up to 3 times
+    for attempt in range(3):
         try:
-            df = yf.download(ticker, start=start, end=end, auto_adjust=True)
-            break  # success — exit the loop
+            df = yf.download(ticker, start=start, end=end, auto_adjust=True, progress=False)
+            break
         except Exception as e:
             if attempt < 2:
-                time.sleep(2)  # wait 2 seconds before retrying
+                time.sleep(2)
             else:
-                st.error("Unable to fetch data from Yahoo Finance. Please try again in a moment.")
+                st.error("Unable to fetch data. Please try again in a moment.")
                 st.stop()
-    
-    df.columns = df.columns.get_level_values(0)
+
+    # Aggressively flatten MultiIndex columns
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.get_level_values(0)
+    else:
+        df.columns = df.columns
+
     df = df.reset_index()
-    df.columns = [col if isinstance(col, str) else col[0] for col in df.columns]
+    
+    # Rename any tuple column names to just the first element
+    df.columns = [col[0] if isinstance(col, tuple) else col for col in df.columns]
+    
+    # Make sure Date column exists
+    if 'Date' not in df.columns and 'index' in df.columns:
+        df = df.rename(columns={'index': 'Date'})
     
     info = yf.Ticker(ticker).info
     
