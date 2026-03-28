@@ -394,7 +394,7 @@ if news:
                 st.caption(f"🗞 {article['source']}  ·  {article['published'][:10] if article['published'] else ''}")
             
             with col_link:
-                st.link_button("Read →", article['url'])
+                st.markdown(f"[Read →]({article['url']})")
             
             st.markdown("---")
 else:
