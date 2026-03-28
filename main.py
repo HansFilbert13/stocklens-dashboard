@@ -65,6 +65,9 @@ def load_data(ticker, start, end):
 
     # Clean and reset index — .history() always returns clean columns
     raw.index = pd.to_datetime(raw.index)
+    # Newer yfinance versions (0.2.57+) return MultiIndex columns — flatten them
+    if isinstance(raw.columns, pd.MultiIndex):
+        raw.columns = raw.columns.droplevel(1)
     raw = raw.reset_index()
     
     df = pd.DataFrame({
