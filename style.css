@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.stApp {
+    background-color: #0d1117;
+    color: #e6edf3;
+}
+
+[data-testid="stSidebar"] {
+    background-color: #161b22;
+    border-right: 1px solid #21262d;
+}
+[data-testid="stSidebar"] * {
+    color: #c9d1d9 !important;
+}
+
+h1 {
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 2rem !important;
+    color: #58a6ff !important;
+    letter-spacing: -0.5px;
+}
+
+h2, h3 {
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 500 !important;
+    color: #e6edf3 !important;
+}
+
+[data-testid="metric-container"] {
+    background-color: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: border-color 0.2s ease;
+}
+[data-testid="metric-container"]:hover {
+    border-color: #58a6ff;
+}
+[data-testid="stMetricLabel"] {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #8b949e !important;
+}
+[data-testid="stMetricValue"] {
+    font-family: 'DM Mono', monospace !important;
+    font-size: 1.6rem !important;
+    font-weight: 500 !important;
+    color: #e6edf3 !important;
+}
+
+.stDownloadButton > button {
+    background-color: #21262d !important;
+    color: #58a6ff !important;
+    border: 1px solid #30363d !important;
+    border-radius: 8px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 500 !important;
+    padding: 8px 20px !important;
+    transition: all 0.2s ease !important;
+}
+.stDownloadButton > button:hover {
+    background-color: #58a6ff !important;
+    color: #0d1117 !important;
+    border-color: #58a6ff !important;
+}
+
+.stButton > button {
+    background-color: #21262d !important;
+    color: #58a6ff !important;
+    border: 1px solid #30363d !important;
+    border-radius: 8px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+.stButton > button:hover {
+    background-color: #58a6ff !important;
+    color: #0d1117 !important;
+    border-color: #58a6ff !important;
+}
+
+[data-testid="stRadio"] label {
+    background-color: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 8px;
+    padding: 4px 16px;
+    color: #c9d1d9 !important;
+    transition: all 0.2s;
+}
+[data-testid="stRadio"] label:hover {
+    border-color: #58a6ff;
+}
+
+.stTextInput > div > div > input {
+    background-color: #161b22 !important;
+    border: 1px solid #30363d !important;
+    border-radius: 8px !important;
+    color: #e6edf3 !important;
+    font-family: 'DM Sans', sans-serif !important;
+}
+.stTextInput > div > div > input:focus {
+    border-color: #58a6ff !important;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1) !important;
+}
+.stTextInput > div > div > input::placeholder {
+    color: #484f58 !important;
+}
+
+.stSelectbox > div > div {
+    background-color: #161b22 !important;
+    border: 1px solid #30363d !important;
+    border-radius: 8px !important;
+    color: #e6edf3 !important;
+}
+
+.stDateInput > div > div > input {
+    background-color: #161b22 !important;
+    border: 1px solid #30363d !important;
+    border-radius: 8px !important;
+    color: #e6edf3 !important;
+    font-family: 'DM Sans', sans-serif !important;
+}
+
+[data-testid="stExpander"] {
+    background-color: #161b22;
+    border: 1px solid #21262d !important;
+    border-radius: 12px !important;
+}
+[data-testid="stExpander"] summary {
+    color: #8b949e !important;
+    font-size: 13px !important;
+}
+[data-testid="stExpander"] summary:hover {
+    color: #58a6ff !important;
+}
+
+hr {
+    border-color: #21262d !important;
+    margin: 20px 0 !important;
+}
+
+[data-testid="stCaptionContainer"] {
+    color: #8b949e !important;
+    font-size: 12px !important;
+}
+
+[data-testid="stMarkdownContainer"] p {
+    color: #c9d1d9;
+    line-height: 1.7;
+}
+
+[data-testid="stInfo"] {
+    background-color: #1c2128 !important;
+    border-left: 3px solid #58a6ff !important;
+    border-radius: 8px !important;
+    color: #c9d1d9 !important;
+}
+
+[data-testid="stWarning"] {
+    background-color: #1c2128 !important;
+    border-left: 3px solid #d29922 !important;
+    border-radius: 8px !important;
+    color: #c9d1d9 !important;
+}
+
+.js-plotly-plot {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #21262d;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #0d1117;
+}
+::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #58a6ff;
+}
