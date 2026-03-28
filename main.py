@@ -53,7 +53,7 @@ def search_ticker(query):
 def load_data(ticker, start, end):
     for attempt in range(3):
         try:
-            df = yf.download(ticker, start=start, end=end, auto_adjust=True, progress=False)
+            raw = yf.download(ticker, start=start, end=end, auto_adjust=True, progress=False)
             break
         except Exception as e:
             if attempt < 2:
@@ -62,16 +62,15 @@ def load_data(ticker, start, end):
                 st.error("Unable to fetch data. Please try again in a moment.")
                 st.stop()
 
-    # Aggressively flatten MultiIndex columns
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = df.columns.get_level_values(0)
-    else:
-        df.columns = df.columns
-
-    df = df.reset_index()
-    
-    # Rename any tuple column names to just the first element
-    df.columns = [col[0] if isinstance(col, tuple) else col for col in df.columns]
+    # Rebuild DataFrame completely to avoid MultiIndex issues
+    df = pd.DataFrame({
+        'Date': raw.index,
+        'Open': raw['Open'].values.flatten(),
+        'High': raw['High'].values.flatten(),
+        'Low': raw['Low'].values.flatten(),
+        'Close': raw['Close'].values.flatten(),
+        'Volume': raw['Volume'].values.flatten()
+    })
     
     # Make sure Date column exists
     if 'Date' not in df.columns and 'index' in df.columns:
