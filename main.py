@@ -53,7 +53,8 @@ def search_ticker(query):
 def load_data(ticker, start, end):
     for attempt in range(3):
         try:
-            raw = yf.download(ticker, start=start, end=end, auto_adjust=True, progress=False)
+            ticker_obj = yf.Ticker(ticker)
+            raw = ticker_obj.history(start=start, end=end)
             break
         except Exception as e:
             if attempt < 2:
@@ -62,21 +63,25 @@ def load_data(ticker, start, end):
                 st.error("Unable to fetch data. Please try again in a moment.")
                 st.stop()
 
-    # Rebuild DataFrame completely to avoid MultiIndex issues
+    # Clean and reset index — .history() always returns clean columns
+    raw.index = pd.to_datetime(raw.index)
+    raw = raw.reset_index()
+    
     df = pd.DataFrame({
-        'Date': raw.index,
-        'Open': raw['Open'].values.flatten(),
-        'High': raw['High'].values.flatten(),
-        'Low': raw['Low'].values.flatten(),
-        'Close': raw['Close'].values.flatten(),
-        'Volume': raw['Volume'].values.flatten()
+        'Date': raw['Date'],
+        'Open': raw['Open'],
+        'High': raw['High'],
+        'Low': raw['Low'],
+        'Close': raw['Close'],
+        'Volume': raw['Volume']
     })
     
     # Make sure Date column exists
     if 'Date' not in df.columns and 'index' in df.columns:
         df = df.rename(columns={'index': 'Date'})
     
-    info = yf.Ticker(ticker).info
+    info = ticker_obj.info
+    raw_news = ticker_obj.news[:5]
     
     company_name = info.get('longName', ticker.upper())
     sector = info.get('sector', 'N/A')
