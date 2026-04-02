@@ -1,8 +1,8 @@
 # 📈 StockLens
-
+ 
 A beginner-friendly stock analysis dashboard that lets anyone analyze stock price movements, volatility, and risk — no finance degree needed.
-
-**[🚀 Try the live app here](https://stocklens.streamlit.app)**
+ 
+**[🚀 Try the live app here](https://stocklens-dashboard-8knxxvkunf5qw5vqfo98ky.streamlit.app)**
 
 ---
 
